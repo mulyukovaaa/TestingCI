@@ -44,9 +44,3 @@ jobs:
             build/jacocoReports/
           retention-days: 7
 
-      - name: Upload coverage to Codecov (public repo)
-        uses: codecov/codecov-action@v3
-        with:
-          files: build/jacocoReports/test/jacocoTestReport.xml
-          fail_ci_if_error: true
-          verbose: true
