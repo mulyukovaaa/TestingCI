@@ -36,14 +36,14 @@ jobs:
         run: ./gradlew clean
 
       - name: Run tests
-        run: ./gradlew test --info
+        run: ./gradlew test --info --continue
 
       - name: Generate JaCoCo report
-        run: ./gradlew jacocoTestReport --info
+        run: ./gradlew jacocoTestReport -x test --info
         if: always()
 
       - name: Generate Allure report
-        run: ./gradlew allureReport --info
+        run: ./gradlew allureReport -x test --info
         if: always()
 
 
