@@ -83,33 +83,33 @@ public class UserAnalyticsIntegrationTest {
                 .body(equalTo("Missing parameters"));
     }
 
-//    @Test
-//    @Order(5)
-//    @DisplayName("Регистрация с пустым id")
-//    void testRegisterUser_IdEmptyParams() {
-//        given()
-//                .queryParam("userId", "")
-//                .queryParam("userName", "Alice")
-//                .when()
-//                .post("/register")
-//                .then()
-//                .statusCode(500)
-//                .body(equalTo("Empty id"));
-//    }
-//
-//    @Test
-//    @Order(6)
-//    @DisplayName("Регистрация с пустым именем")
-//    void testRegisterUser_NameEmptyParams() {
-//        given()
-//                .queryParam("userId", "12")
-//                .queryParam("userName", "")
-//                .when()
-//                .post("/register")
-//                .then()
-//                .statusCode(500)
-//                .body(equalTo("Empty id"));
-//    }
+    @Test
+    @Order(5)
+    @DisplayName("Регистрация с пустым id")
+    void testRegisterUser_IdEmptyParams() {
+        given()
+                .queryParam("userId", "")
+                .queryParam("userName", "Alice")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(500)
+                .body(equalTo("Empty id"));
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("Регистрация с пустым именем")
+    void testRegisterUser_NameEmptyParams() {
+        given()
+                .queryParam("userId", "12")
+                .queryParam("userName", "")
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(500)
+                .body(equalTo("Empty id"));
+    }
 
     @Test
     @Order(7)
@@ -195,31 +195,31 @@ public class UserAnalyticsIntegrationTest {
                 .body(equalTo("Missing userId"));
     }
 
-//    @Test
-//    @Order(13)
-//    @DisplayName("Поиск неактивных пользователей")
-//    void testInactiveUsers_Success() {
-//        given()
-//                .queryParam("days", "30")
-//                .when()
-//                .get("/inactiveUsers")
-//                .then()
-//                .statusCode(200)
-//                .contentType(ContentType.JSON);
-//    }
-//
-//    @Test
-//    @Order(14)
-//    @DisplayName("Получение метрик активности за месяц")
-//    void testMonthlyActivity_Success() {
-//        given()
-//                .queryParam("userId", "user1")
-//                .queryParam("month", "2025-03")
-//                .when()
-//                .get("/monthlyActivity")
-//                .then()
-//                .statusCode(200)
-//                .contentType(ContentType.JSON);
-//    }
+    @Test
+    @Order(13)
+    @DisplayName("Поиск неактивных пользователей")
+    void testInactiveUsers_Success() {
+        given()
+                .queryParam("days", "30")
+                .when()
+                .get("/inactiveUsers")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON);
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("Получение метрик активности за месяц")
+    void testMonthlyActivity_Success() {
+        given()
+                .queryParam("userId", "user1")
+                .queryParam("month", "2025-03")
+                .when()
+                .get("/monthlyActivity")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON);
+    }
 
 }

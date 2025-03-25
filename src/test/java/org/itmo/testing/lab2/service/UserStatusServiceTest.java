@@ -96,16 +96,16 @@ public class UserStatusServiceTest {
         verify(userAnalyticsService).getUserSessions("user1");
     }
 
-//    @Test
-//    void testGetUserLastSessionDate_EmptySessions() {
-//        LinkedList<UserAnalyticsService.Session> sessions = new LinkedList<>();
-//        when(userAnalyticsService.getUserSessions("user1")).thenReturn(sessions);
-//
-//        Optional<String> lastSessionDate = userStatusService.getUserLastSessionDate("user1");
-//
-//        assertFalse(lastSessionDate.isPresent());
-//        verify(userAnalyticsService).getUserSessions("user1");
-//    }
+    @Test
+    void testGetUserLastSessionDate_EmptySessions() {
+        LinkedList<UserAnalyticsService.Session> sessions = new LinkedList<>();
+        when(userAnalyticsService.getUserSessions("user1")).thenReturn(sessions);
+
+        Optional<String> lastSessionDate = userStatusService.getUserLastSessionDate("user1");
+
+        assertFalse(lastSessionDate.isPresent());
+        verify(userAnalyticsService).getUserSessions("user1");
+    }
 
     @Test
     void testGetUserLastSessionDate_SingleSession() {
@@ -123,20 +123,20 @@ public class UserStatusServiceTest {
         verify(userAnalyticsService).getUserSessions("user1");
     }
 
-//    @Test
-//    void testGetUserLastSessionDate_NullLogoutTime() {
-//        LinkedList<UserAnalyticsService.Session> sessions = new LinkedList<>();
-//        UserAnalyticsService.Session sessionWithNullLogout = mock(UserAnalyticsService.Session.class);
-//        when(sessionWithNullLogout.getLogoutTime()).thenReturn(null);
-//        sessions.add(sessionWithNullLogout);
-//
-//        when(userAnalyticsService.getUserSessions("user1")).thenReturn(sessions);
-//
-//        Optional<String> lastSessionDate = userStatusService.getUserLastSessionDate("user1");
-//
-//        assertFalse(lastSessionDate.isPresent());
-//        verify(userAnalyticsService).getUserSessions("user1");
-//        verify(sessionWithNullLogout).getLogoutTime();
-//    }
+    @Test
+    void testGetUserLastSessionDate_NullLogoutTime() {
+        LinkedList<UserAnalyticsService.Session> sessions = new LinkedList<>();
+        UserAnalyticsService.Session sessionWithNullLogout = mock(UserAnalyticsService.Session.class);
+        when(sessionWithNullLogout.getLogoutTime()).thenReturn(null);
+        sessions.add(sessionWithNullLogout);
+
+        when(userAnalyticsService.getUserSessions("user1")).thenReturn(sessions);
+
+        Optional<String> lastSessionDate = userStatusService.getUserLastSessionDate("user1");
+
+        assertFalse(lastSessionDate.isPresent());
+        verify(userAnalyticsService).getUserSessions("user1");
+        verify(sessionWithNullLogout).getLogoutTime();
+    }
 
 }
