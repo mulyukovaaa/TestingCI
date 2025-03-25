@@ -1,5 +1,7 @@
 name: CI Pipeline
 
+permissions: write-all
+
 on:
   push:
     branches:
@@ -30,11 +32,24 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build and run tests with Gradle
-        run: ./gradlew clean test jacocoTestReport --info
+      - name: Clean project
+        run: ./gradlew clean
+
+      - name: Run tests
+        run: ./gradlew test --info
+
+      - name: Generate JaCoCo report
+        run: ./gradlew jacocoTestReport --info
+        if: always()
+
+      - name: Generate Allure report
+        run: ./gradlew allureReport --info
+        if: always()
+
 
       - name: Upload test reports as artifacts
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: test-reports-${{ matrix.java }}-${{ github.run_id }}
           path: |
@@ -42,5 +57,32 @@ jobs:
             build/test-results/
             build/jacocoHtml/
             build/jacocoReports/
+            build/allure-results/
           retention-days: 7
+
+      - name: Checkout gh-pages for history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure report with history
+        uses: simple-elf/allure-report-action@v1.10
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-report
+          allure_results: build/allure-results
+
+      - name: Deploy Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
+          force_orphan: true
+
 
